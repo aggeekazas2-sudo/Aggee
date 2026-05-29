@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Quiz Live - Kaza's AI ⚡</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="logo"
+style="
+display:flex;
+align-items:center;
+gap:10px;
+">
+
+<h1>Kaza's AI ⚡</h1>
+
+<a href="profile.html"
+class="mini-profile">
+
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+
+</a>
+
+</div>
+
+<nav>
+
+<a href="index.html">Accueil</a>
+
+<a href="apps.html">Applications</a>
+
+<a href="leaderboard.html">Classement</a>
+
+<a href="quiz-schedule.html">Horaires</a>
+
+</nav>
+
+</header>
+
+<!-- HERO -->
+
+<section class="info">
+
+<h2>
+
+🌍 Quiz Mondial en Direct
+
+</h2>
+
+<p>
+
+Tous les joueurs du monde
+reçoivent les mêmes questions
+en même temps ⚡
+
+</p>
+
+</section>
+
+<!-- PUB -->
+
+<section class="ads-section">
+
+<div class="ad-space">
+
+PUBLICITÉ QUIZ LIVE
+
+</div>
+
+</section>
+
+<!-- LIVE STATUS -->
+
+<section class="cards">
+
+<div class="card">
+
+<h3>
+
+⏳ Début du Quiz
+
+</h3>
+
+<div id="countdown"
+style="
+font-size:55px;
+font-weight:bold;
+margin-top:20px;
+color:#22c55e;
+">
+
+03:00
+
+</div>
+
+<p style="margin-top:20px;">
+
+Le quiz démarre automatiquement
+quand le compte à rebours atteint zéro.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+🌍 Joueurs Connectés
+
+</h3>
+
+<div id="livePlayers"
+style="
+font-size:55px;
+font-weight:bold;
+margin-top:20px;
+color:#22c55e;
+">
+
+12450
+
+</div>
+
+<p style="margin-top:20px;">
+
+Des joueurs du monde entier
+attendent le quiz.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- START QUIZ -->
+
+<section class="info">
+
+<button
+id="startQuiz"
+class="btn">
+
+Commencer le Quiz 🚀
+
+</button>
+
+</section>
+
+<!-- QUIZ BOX -->
+
+<section
+id="quizContainer"
+class="info"
+style="display:none;">
+
+<div class="card"
+style="
+max-width:700px;
+margin:auto;
+">
+
+<h2 id="question">
+
+Chargement...
+
+</h2>
+
+<div
+style="
+margin-top:30px;
+display:flex;
+flex-direction:column;
+gap:15px;
+">
+
+<button class="btn answer">
+
+Réponse 1
+
+</button>
+
+<button class="btn answer">
+
+Réponse 2
+
+</button>
+
+<button class="btn answer">
+
+Réponse 3
+
+</button>
+
+<button class="btn answer">
+
+Réponse 4
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- RESULT -->
+
+<section
+id="resultContainer"
+class="info"
+style="display:none;">
+
+<div class="card"
+style="
+max-width:700px;
+margin:auto;
+">
+
+<h2>
+
+🏆 Quiz Terminé
+
+</h2>
+
+<h1
+id="finalScore"
+style="
+font-size:70px;
+margin-top:20px;
+color:#22c55e;
+">
+
+0
+
+</h1>
+
+<p>
+
+Points gagnés ⚡
+
+</p>
+
+<br>
+
+<a href="leaderboard.html"
+class="btn">
+
+Voir Classement Mondial
+
+</a>
+
+</div>
+
+</section>
+
+<!-- PUB -->
+
+<section class="ads-section">
+
+<div class="ad-space">
+
+PUBLICITÉ BAS
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+<p>
+
+© 2026 Kaza's AI ⚡
+
+</p>
+
+</footer>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp }
+
+from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+
+import {
+
+getFirestore,
+collection,
+addDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBMfj-cDt7Bggw-uN8LpPw8bNNGXcZlmHk",
+
+authDomain: "kaza-s-ai.firebaseapp.com",
+
+projectId: "kaza-s-ai",
+
+storageBucket: "kaza-s-ai.firebasestorage.app",
+
+messagingSenderId: "254665122836",
+
+appId: "1:254665122836:web:315f55a8b44e55ff29f301",
+
+measurementId: "G-JP0TRYQ5PL"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+window.db = db;
+window.addDoc = addDoc;
+window.collection = collection;
+
+</script>
+
+<!-- QUIZ SCRIPT -->
+
+<script>
+
+let time = 180;
+
+const countdown =
+document.getElementById("countdown");
+
+const startBtn =
+document.getElementById("startQuiz");
+
+const quizContainer =
+document.getElementById("quizContainer");
+
+const resultContainer =
+document.getElementById("resultContainer");
+
+const finalScore =
+document.getElementById("finalScore");
+
+const questionText =
+document.getElementById("question");
+
+const answers =
+document.querySelectorAll(".answer");
+
+let currentQuestion = 0;
+
+let score = 0;
+
+const quizData = [
+
+{
+
+question:
+"Quelle est la capitale du Japon ?",
+
+answers:
+["Tokyo","Pékin","Séoul","Bangkok"],
+
+correct:
+"Tokyo"
+
+},
+
+{
+
+question:
+"Quel est le plus grand océan ?",
+
+answers:
+["Atlantique","Pacifique","Indien","Arctique"],
+
+correct:
+"Pacifique"
+
+},
+
+{
+
+question:
+"Combien font 8 x 8 ?",
+
+answers:
+["64","56","72","48"],
+
+correct:
+"64"
+
+}
+
+];
+
+/* COUNTDOWN */
+
+const timer =
+setInterval(()=>{
+
+const minutes =
+Math.floor(time / 60);
+
+const seconds =
+time % 60;
+
+countdown.innerHTML =
+`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+time--;
+
+if(time < 0){
+
+clearInterval(timer);
+
+countdown.innerHTML =
+"Quiz Commencé 🚀";
+
+startBtn.disabled = false;
+
+}
+
+},1000);
+
+/* LIVE PLAYERS */
+
+let players = 12450;
+
+setInterval(()=>{
+
+players +=
+Math.floor(Math.random()*5);
+
+document.getElementById(
+"livePlayers"
+).innerHTML = players;
+
+},3000);
+
+/* START QUIZ */
+
+startBtn.addEventListener(
+"click",
+
+()=>{
+
+quizContainer.style.display =
+"block";
+
+startBtn.style.display =
+"none";
+
+loadQuestion();
+
+});
+
+/* LOAD QUESTION */
+
+function loadQuestion(){
+
+const q =
+quizData[currentQuestion];
+
+questionText.innerHTML =
+q.question;
+
+answers.forEach((btn,index)=>{
+
+btn.innerHTML =
+q.answers[index];
+
+btn.onclick = ()=>{
+
+if(btn.innerHTML === q.correct){
+
+score += 100;
+
+btn.style.background =
+"#22c55e";
+
+}
+
+else{
+
+btn.style.background =
+"red";
+
+}
+
+setTimeout(()=>{
+
+currentQuestion++;
+
+if(currentQuestion < quizData.length){
+
+loadQuestion();
+
+}
+
+else{
+
+finishQuiz();
+
+}
+
+},1000);
+
+};
+
+});
+
+}
+
+/* FINISH */
+
+async function finishQuiz(){
+
+quizContainer.style.display =
+"none";
+
+resultContainer.style.display =
+"block";
+
+finalScore.innerHTML =
+score;
+
+/* SAVE FIREBASE */
+
+try{
+
+await addDoc(
+collection(db,"leaderboard"),
+
+{
+
+name:"Player",
+points:score,
+country:"RDC"
+
+}
+
+);
+
+console.log("Score enregistré");
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+  <title>Connexion - Kaza's AI ⚡</title>
+
+  <link rel="stylesheet"
+  href="style.css">
+
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+
+    <div class="logo"
+    style="
+    display:flex;
+    align-items:center;
+    gap:10px;
+    ">
+
+      <h1>Kaza's AI ⚡</h1>
+
+      <!-- MINI PROFIL -->
+
+      <a href="profile.html"
+      class="mini-profile">
+
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+
+      </a>
+
+    </div>
+
+    <nav>
+
+      <a href="index.html">Accueil</a>
+
+      <a href="apps.html">Applications</a>
+
+      <a href="live-quiz.html">Quiz Live</a>
+
+      <a href="quiz-schedule.html">Horaires</a>
+
+      <a href="leaderboard.html">Classement</a>
+
+    </nav>
+
+  </header>
+
+  <!-- PUBLICITÉ TOP -->
+
+  <section class="ads-section">
+
+    <div class="ad-space">
+
+      PUBLICITÉ TOP
+
+    </div>
+
+  </section>
+
+  <!-- LOGIN -->
+
+  <section class="info">
+
+    <h2>
+
+      Connexion 🔐
+
+    </h2>
+
+    <div class="cards">
+
+      <div class="card">
+
+        <h3>
+
+          Rejoins les Quiz Mondiaux 🌍
+
+        </h3>
+
+        <p style="
+        margin-top:15px;
+        margin-bottom:25px;
+        color:#d1d5db;
+        line-height:1.7;
+        ">
+
+          Connecte-toi pour participer
+          aux quiz mondiaux en direct
+          et apparaître dans le classement mondial.
+
+        </p>
+
+        <!-- FORM -->
+
+        <form id="loginForm"
+        style="
+        display:flex;
+        flex-direction:column;
+        gap:15px;
+        ">
+
+          <input
+          type="email"
+          id="email"
+          placeholder="Adresse Email"
+          required>
+
+          <input
+          type="password"
+          id="password"
+          placeholder="Mot de passe"
+          required>
+
+          <button
+          type="submit"
+          class="btn">
+
+            Se connecter
+
+          </button>
+
+        </form>
+
+        <br>
+
+        <!-- GOOGLE -->
+
+        <button
+        id="googleLogin"
+        class="btn secondary">
+
+          Continuer avec Google
+
+        </button>
+
+        <br><br>
+
+        <p>
+
+          Pas encore de compte ?
+
+        </p>
+
+        <br>
+
+        <a href="signup.html"
+        class="btn secondary">
+
+          Créer un compte
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PUBLICITÉ MILIEU -->
+
+  <section class="ads-section">
+
+    <div class="ad-space">
+
+      PUBLICITÉ CONNEXION
+
+    </div>
+
+  </section>
+
+  <!-- AVANTAGES -->
+
+  <section class="info">
+
+    <h2>
+
+      Pourquoi créer un compte ? 🚀
+
+    </h2>
+
+    <div class="cards">
+
+      <div class="card">
+
+        <h3>
+
+          🌎 Quiz Mondiaux
+
+        </h3>
+
+        <p>
+
+          Participe aux compétitions live mondiales.
+
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>
+
+          🏆 Classement
+
+        </h3>
+
+        <p>
+
+          Monte dans le classement mondial.
+
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>
+
+          ⭐ Points
+
+        </h3>
+
+        <p>
+
+          Gagne des points et débloque des niveaux.
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PUBLICITÉ BAS -->
+
+  <section class="ads-section">
+
+    <div class="ad-space">
+
+      PUBLICITÉ BAS DE PAGE
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <p>
+
+      © 2026 Kaza's AI ⚡
+
+    </p>
+
+  </footer>
+
+  <!-- FIREBASE -->
+
+  <script type="module">
+
+  import { initializeApp }
+
+  from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+
+  import {
+
+    getAuth,
+    signInWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup
+
+  }
+
+  from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+
+  const firebaseConfig = {
+
+    apiKey: "AIzaSyBMfj-cDt7Bggw-uN8LpPw8bNNGXcZlmHk",
+
+    authDomain: "kaza-s-ai.firebaseapp.com",
+
+    projectId: "kaza-s-ai",
+
+    storageBucket: "kaza-s-ai.firebasestorage.app",
+
+    messagingSenderId: "254665122836",
+
+    appId: "1:254665122836:web:315f55a8b44e55ff29f301",
+
+    measurementId: "G-JP0TRYQ5PL"
+
+  };
+
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+
+  const provider =
+  new GoogleAuthProvider();
+
+  // LOGIN EMAIL
+
+  const loginForm =
+  document.getElementById("loginForm");
+
+  loginForm.addEventListener(
+  "submit",
+
+  async(e)=>{
+
+    e.preventDefault();
+
+    const email =
+    document.getElementById("email").value;
+
+    const password =
+    document.getElementById("password").value;
+
+    try{
+
+      await signInWithEmailAndPassword(
+
+        auth,
+        email,
+        password
+
+      );
+
+      alert("Connexion réussie 🚀");
+
+      window.location.href =
+      "profile.html";
+
+    }
+
+    catch(error){
+
+      alert(error.message);
+
+    }
+
+  });
+
+  // GOOGLE LOGIN
+
+  const googleBtn =
+  document.getElementById("googleLogin");
+
+  googleBtn.addEventListener(
+  "click",
+
+  async()=>{
+
+    try{
+
+      await signInWithPopup(
+      auth,
+      provider
+      );
+
+      alert("Connexion Google réussie 🚀");
+
+      window.location.href =
+      "profile.html";
+
+    }
+
+    catch(error){
+
+      alert(error.message);
+
+    }
+
+  });
+
+  </script>
+
+  <!-- SCRIPT -->
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
